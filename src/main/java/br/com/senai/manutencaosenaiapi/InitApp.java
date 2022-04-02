@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import br.com.senai.manutencaosenaiapi.entity.Tecnico;
+
 @SpringBootApplication
 public class InitApp {
 
@@ -16,7 +18,11 @@ public class InitApp {
 	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
-			System.out.println("Teste foda......");
+			Tecnico tecnico = new Tecnico();
+			tecnico.setId(1);
+			
+			Tecnico outroTecnico = new Tecnico();
+			outroTecnico.setId(1);
 		};
 	}
 	
