@@ -42,7 +42,7 @@ public class Cliente {
 	
 	public Integer getIdade() {
 		int idade = LocalDate.now().getYear() - getDataDeNascimento().getYear();
-		return 0;
+		return idade;
 	}
 	
 }

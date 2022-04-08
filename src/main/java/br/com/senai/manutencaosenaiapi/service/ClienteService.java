@@ -1,7 +1,5 @@
 package br.com.senai.manutencaosenaiapi.service;
 
-import java.time.LocalDate;
-
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
