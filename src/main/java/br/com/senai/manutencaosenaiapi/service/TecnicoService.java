@@ -1,34 +1,21 @@
 package br.com.senai.manutencaosenaiapi.service;
 
-import java.time.LocalDate;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Service;
-
-import com.google.common.base.Preconditions;
+import org.springframework.validation.annotation.Validated;
 
 import br.com.senai.manutencaosenaiapi.entity.Tecnico;
 
 @Service
+@Validated
 public class TecnicoService {
 
-	public Tecnico inserir(Tecnico novoTecnico) {
-		
-		Preconditions.checkNotNull(novoTecnico, "O técnico não pode ser nulo");
-		Preconditions.checkArgument(
-				novoTecnico.getNomeCompleto() != null && !novoTecnico.getNomeCompleto().isEmpty(),
-				"O nome é obrigatório");
-		Preconditions.checkArgument(novoTecnico.getDataDeAdmissao() != null, 
-				"A data de admissão é obrigatória");
-		
-		LocalDate dataAtual = LocalDate.now();
-		LocalDate dataDeAdmissao = novoTecnico.getDataDeAdmissao();
-		
-		Preconditions.checkArgument(dataDeAdmissao.isBefore(dataAtual)
-				|| dataDeAdmissao.isEqual(dataAtual),
-				"A data de admissão deve ser igual ou anterior a data atual");
-		
-		Tecnico tecnicoSalvo = novoTecnico;
-		return tecnicoSalvo;
+	public Tecnico inserir(@Valid
+						   @NotNull(message = "O técnico não pode ser nulo")
+						   Tecnico novoTecnico) {
+		return novoTecnico;
 	}
 	
 }
