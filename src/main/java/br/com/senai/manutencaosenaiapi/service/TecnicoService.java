@@ -14,20 +14,24 @@ import br.com.senai.manutencaosenaiapi.entity.Tecnico;
 @Validated
 public class TecnicoService {
 
-	public Tecnico inserir(@Valid
-						   @NotNull(message = "O técnico não pode ser nulo")
-						   Tecnico novoTecnico) {
-		Preconditions.checkArgument(novoTecnico.isNovo(), "O técnico ja foi salvo");
-		return novoTecnico;
+	public Tecnico inserir(
+			@Valid
+			@NotNull(message = "O técnico não pode ser nulo")
+			Tecnico novoTecnico) {			
+		Preconditions.checkArgument(novoTecnico.isNovo(),
+				"O técnico já foi salvo");
+		Tecnico tecnicoSalvo = novoTecnico;	
+		return tecnicoSalvo;				
 	}
 	
 	public Tecnico alterar(
 			@Valid
 			@NotNull(message = "O técnico não pode ser nulo")
 			Tecnico tecnicoSalvo) {
-		Preconditions.checkArgument(!tecnicoSalvo.isNovo(), "O técnico ainda não foi salvo");
-		return tecnicoSalvo;
-		
+		Preconditions.checkArgument(!tecnicoSalvo.isNovo(), 
+				"O técnico ainda não foi inserido");
+		Tecnico tecnicoAtualizado = tecnicoSalvo;
+		return tecnicoAtualizado;
 	}
 	
 }
