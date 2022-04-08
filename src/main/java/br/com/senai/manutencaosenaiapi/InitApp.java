@@ -30,10 +30,12 @@ public class InitApp {
 				Tecnico novoTecnico = new Tecnico();
 				novoTecnico.setNomeCompleto("Josevildo Soares");
 				
-				LocalDate dataDeAdmissao = LocalDate.of(2022, 5, 17);
-				novoTecnico.setDataDeAdmissao(dataDeAdmissao);
+//				LocalDate dataDeAdmissao = LocalDate.of(2022, 5, 17);
+//				novoTecnico.setDataDeAdmissao(dataDeAdmissao);
 				
-				this.service.inserir(novoTecnico);
+//				this.service.inserir(novoTecnico);
+				
+				this.service.alterar(novoTecnico);
 				System.out.println("Técnico salvo com sucesso");
 			} catch (Exception e) {
 				System.out.println(e.getMessage());

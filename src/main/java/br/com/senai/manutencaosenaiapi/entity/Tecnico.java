@@ -25,4 +25,8 @@ public class Tecnico {
 	@PastOrPresent(message = "A data de admissão não pode ser posterior a data atual")
 	private LocalDate dataDeAdmissao;
 	
+	public boolean isNovo() {
+		return getId() != null;
+	}
+	
 }

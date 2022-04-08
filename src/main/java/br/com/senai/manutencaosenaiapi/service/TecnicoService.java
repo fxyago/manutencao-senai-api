@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.google.common.base.Preconditions;
+
 import br.com.senai.manutencaosenaiapi.entity.Tecnico;
 
 @Service
@@ -15,7 +17,17 @@ public class TecnicoService {
 	public Tecnico inserir(@Valid
 						   @NotNull(message = "O técnico não pode ser nulo")
 						   Tecnico novoTecnico) {
+		Preconditions.checkArgument(novoTecnico.isNovo(), "O técnico ja foi salvo");
 		return novoTecnico;
+	}
+	
+	public Tecnico alterar(
+			@Valid
+			@NotNull(message = "O técnico não pode ser nulo")
+			Tecnico tecnicoSalvo) {
+		Preconditions.checkArgument(!tecnicoSalvo.isNovo(), "O técnico ainda não foi salvo");
+		return tecnicoSalvo;
+		
 	}
 	
 }
