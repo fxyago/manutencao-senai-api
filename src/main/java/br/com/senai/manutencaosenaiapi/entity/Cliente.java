@@ -3,6 +3,7 @@ package br.com.senai.manutencaosenaiapi.entity;
 import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
@@ -26,7 +27,7 @@ public class Cliente {
 	@NotEmpty(message = "O sobrenome não pode ser nulo")
 	private String sobrenome;
 	
-	@Pattern(regexp = "NNN.NNN.NNN-NN")
+	@Pattern(regexp = "(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)", message = "O cpf é inválido")
 	@NotEmpty(message = "O cpf não pode ser nulo")
 	private String cpf;
 	
@@ -36,7 +37,7 @@ public class Cliente {
 	@NotEmpty(message = "O endereço não pode ser nulo")
 	private String endereco;
 	
-	@NotEmpty(message = "A data de nascimento é obrigatória")
+	@NotNull(message = "A data de nascimento é obrigatória")
 	@Past(message = "A data de nascimento deve ser anterior a data atual")
 	private LocalDate dataDeNascimento;
 	

@@ -1,6 +1,13 @@
 package br.com.senai.manutencaosenaiapi.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Service;
 
@@ -14,11 +21,33 @@ public class ClienteService {
 	private final int IDADE_MINIMA = 12;
 	
 	public Cliente inserir(@Valid Cliente novoCliente) {
-		
-		Cliente clienteSalvo = new Cliente();
-		Preconditions.checkArgument(novoCliente.getIdade() > IDADE_MINIMA, "O cliente deve possuir mais de 12 anos");
-		
+		this.validarIdadeDo(novoCliente);
+		Cliente clienteSalvo = novoCliente;
 		return clienteSalvo;
+	}
+
+	public Cliente alterar(@Valid Cliente clienteSalvo) {
+		this.validarIdadeDo(clienteSalvo);
+		Cliente clienteAtualizado = clienteSalvo;
+		return clienteAtualizado;
+	}
+	
+	public List<Cliente> listarPor(
+			@NotEmpty(message = "O nome para busca é obrigatório")
+			@NotBlank(message = "O nome para busca não deve conter espaços")
+			String nome) {
+		return new ArrayList<Cliente>();
+	}
+	
+	public void removerPor(
+			@NotNull(message = "O id para remoção não pode ser nulo")
+			@Min(value = 1, message = "O id deve ser maior que zero")
+			Integer id) {
+		
+	}
+	
+	private void validarIdadeDo(Cliente novoCliente) {
+		Preconditions.checkArgument(novoCliente.getIdade() > IDADE_MINIMA, "O cliente deve possuir mais de 12 anos");
 	}
 	
 	
