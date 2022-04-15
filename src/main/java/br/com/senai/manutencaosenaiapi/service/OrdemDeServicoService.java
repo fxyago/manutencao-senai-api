@@ -24,7 +24,7 @@ public class OrdemDeServicoService {
 			@NotNull(message = "A nova ordem é obrigatoria")
 			OrdemDeServico novaOrdem) {
 		
-		validar(novaOrdem);
+		this.validar(novaOrdem);
 		
 		OrdemDeServico ordemSalva = novaOrdem;
 		return ordemSalva;
