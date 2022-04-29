@@ -39,4 +39,7 @@ public class Peca {
 	@Min(value = 0, message = "A quantidade não pode ser menor que zero")
 	private Integer qtdeEmEstoque;
 	
+	public static void mostrar(Peca peca) {
+		System.out.println("Peça encontrada: " + peca);
+	}
 }
