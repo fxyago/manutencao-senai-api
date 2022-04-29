@@ -9,7 +9,6 @@ spring:
     hibernate:
       ddl-auto: validate
     properties:
-      hibernate:
-      format-sql: true
+      hibernate.format_sql: true
     show-sql: true
     open-in-view: false
