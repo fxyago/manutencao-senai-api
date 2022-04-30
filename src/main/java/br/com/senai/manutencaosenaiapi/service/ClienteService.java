@@ -9,14 +9,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
 
 import br.com.senai.manutencaosenaiapi.entity.Cliente;
+import br.com.senai.manutencaosenaiapi.repository.ClientesRepository;
 
 @Service
 public class ClienteService {
+	
+	@Autowired
+	private ClientesRepository repository;
 	
 	private final int IDADE_MINIMA = 12;
 	
@@ -25,8 +30,7 @@ public class ClienteService {
 			@NotNull(message = "O cliente não pode ser nulo")
 			Cliente novoCliente) {
 		this.validarIdadeDo(novoCliente);
-		Cliente clienteSalvo = novoCliente;
-		return clienteSalvo;
+		return this.repository.save(novoCliente);
 	}
 
 	public Cliente alterar(
@@ -34,22 +38,21 @@ public class ClienteService {
 			@NotNull(message = "O cliente não pode ser nulo")
 			Cliente clienteSalvo) {
 		this.validarIdadeDo(clienteSalvo);
-		Cliente clienteAtualizado = clienteSalvo;
-		return clienteAtualizado;
+		return this.repository.save(clienteSalvo);
 	}
 	
 	public List<Cliente> listarPor(
 			@NotEmpty(message = "O nome para busca é obrigatório")
 			@NotBlank(message = "O nome para busca não deve conter espaços")
 			String nome) {
-		return new ArrayList<Cliente>();
+		return this.repository.listarPor(String.format("%%%s%%", nome));
 	}
 	
 	public void removerPor(
 			@NotNull(message = "O id para remoção não pode ser nulo")
 			@Min(value = 1, message = "O id deve ser maior que zero")
 			Integer id) {
-		
+		this.repository.deleteById(id);
 	}
 	
 	private void validarIdadeDo(Cliente novoCliente) {
