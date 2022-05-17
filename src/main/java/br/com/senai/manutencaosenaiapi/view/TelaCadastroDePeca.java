@@ -22,7 +22,7 @@ import br.com.senai.manutencaosenaiapi.entity.Peca;
 import br.com.senai.manutencaosenaiapi.service.PecaService;
 
 @Component
-public class TelaCadastroDePeca extends JFrame {
+public class TelaCadastroDePeca extends JFrameVoltavel {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -33,9 +33,10 @@ public class TelaCadastroDePeca extends JFrame {
 	@Autowired
 	private PecaService pecaService;
 	private JTextField edtQuantidade;
+	private JButton btnVoltar;
 
 	public TelaCadastroDePeca() {
-		setTitle("Cadastro de Peça");
+		resetarTitulo();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 440);
 		contentPane = new JPanel();
@@ -93,53 +94,82 @@ public class TelaCadastroDePeca extends JFrame {
 
 		jtaEspecificacoes = new JTextArea();
 		jtaEspecificacoes.setLineWrap(true);
+		
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				voltarPara(telaAnterior);
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup().addComponent(btnSalvar).addContainerGap())
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblEspecificacoes)
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblId).addComponent(edtId, GroupLayout.PREFERRED_SIZE, 49,
-														GroupLayout.PREFERRED_SIZE))
-										.addGap(41)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(edtDescricao, GroupLayout.PREFERRED_SIZE, 216,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblDescricao))
-										.addGap(18)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblQuantidade).addComponent(edtQuantidade,
-														GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))))
-						.addGap(31))
-				.addGroup(Alignment.LEADING,
-						gl_contentPane.createSequentialGroup().addGap(1)
-								.addComponent(jtaEspecificacoes, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-								.addContainerGap()));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup()
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblId)
-						.addComponent(lblDescricao).addComponent(lblQuantidade))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(edtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(edtDescricao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(edtQuantidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblEspecificacoes)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(jtaEspecificacoes, GroupLayout.PREFERRED_SIZE, 198, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.RELATED, 85, Short.MAX_VALUE).addComponent(btnSalvar)
-				.addContainerGap()));
+					.addContainerGap()
+					.addComponent(btnVoltar)
+					.addGap(262)
+					.addComponent(btnSalvar)
+					.addContainerGap())
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblEspecificacoes)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblId)
+								.addComponent(edtId, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))
+							.addGap(41)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(edtDescricao, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDescricao))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblQuantidade)
+								.addComponent(edtQuantidade, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))))
+					.addGap(31))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(1)
+					.addComponent(jtaEspecificacoes)
+					.addContainerGap())
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblId)
+						.addComponent(lblDescricao)
+						.addComponent(lblQuantidade))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(edtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(edtDescricao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(edtQuantidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblEspecificacoes)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(jtaEspecificacoes, GroupLayout.PREFERRED_SIZE, 198, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnVoltar)
+						.addComponent(btnSalvar))
+					.addContainerGap())
+		);
 		contentPane.setLayout(gl_contentPane);
 	}
 
+	public void adicionarNovaPeca() {
+		resetarTitulo();
+	}
+	
+	private void resetarTitulo() {
+		this.setTitle("Cadastro de Peça");
+	}
+	
 	public void colocarEmEdicao(Peca pecaSalva) {
+		this.setTitle("Editar Peça Salva");
 		edtId.setText(pecaSalva.getId().toString());
 		edtDescricao.setText(pecaSalva.getDescricao());
 		jtaEspecificacoes.setText(pecaSalva.getEspecificacoes());
 		edtQuantidade.setText(pecaSalva.getQtdeEmEstoque().toString());
 	}
+	
 }
